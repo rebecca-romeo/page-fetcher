@@ -2,29 +2,34 @@
 const request = require('request');
 const fs = require('fs');
 
+// Slice process.argv to only return the users input
 const fetchInfo = process.argv.slice(2);
-// console.log(fetchInfo[0]);
+
+// Website link entered by the user:
 const content = fetchInfo[0];
-const userFilePath = fetchInfo[1]
+
+// File path entered by the user:
+const userFilePath = fetchInfo[1];
 
 
+//
 request(content, userFilePath, (error, response, body) => {
   // console.log('error:', error); // Print the error if one occurred
   // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
   // console.log('body:', body); // Print the HTML for the homepage.
-  // console.log(body)
+
+  // Save the content of the body received from the site to a variable
   const content = body;
-  console.log(body)
+  console.log(body);
 
-try {
-  fs.writeFileSync(userFilePath, content);
-// console.log(file)
-  // file written successfully
-  console.log(`Downloaded and saved to ${userFilePath}`)
-} catch (err) {
-  console.error(err);
-}
-
+  try {
+    // write the body of the user's site, to the filepath the user entered
+    fs.writeFileSync(userFilePath, content);
+    // console.log(file)
+    console.log(`Downloaded and saved to ${userFilePath}`);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 
@@ -32,15 +37,13 @@ try {
 
 // fetcher function
 // take two command line arguments:
-  // 1. url
-  // 2. local file path
+// 1. url
+// 2. local file path
 
 
-
-  // should download the resource at the URL
-  // save it to the local path on your machine.
-  // when finished: print message :
-      // Downloaded and saved 1235 bytes to ./index.html.
+// should download the resource at the URL
+// save it to the local path on your machine.
+// when finished, print message
 
 
 // will need to make an http request for unknown time
